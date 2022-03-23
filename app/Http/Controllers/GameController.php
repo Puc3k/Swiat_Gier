@@ -14,11 +14,33 @@ class GameController extends Controller
     public function index(): View
     {
        $games = DB::table('games')
-           ->select('id','title','score','genre_id')
+           ->join('genres','games.genre_id','=','genres.id')
+           ->select(
+               'games.id','games.title','games.score',
+               'genres.id as genre_id','genres.name as genre_name')
+           ->orderBy('score','desc')
            ->get();
+
+       $stat = [
+           'count' => DB::table('games')->count(),
+           'countScoreGtSeven' => DB::table('games')->where('score','>',70)->count(),
+           'max'=> DB::table('games')->max('score'),
+           'min'=>DB::table('games')->min('score'),
+           'avg'=>DB::table('games')->avg('score'),
+       ];
+
+        $bestGames = DB::table('games')
+            ->join('genres','games.genre_id','=','genres.id')
+            ->select(
+                'games.id','games.title','games.score',
+                'genres.id as genre_id','genres.name as genre_name')
+            ->where('score','>',90)
+            ->get();
 
         return view('game.list',[
             'games'=>$games,
+            'stats'=>$stat,
+            'bestGames'=>$bestGames,
         ]);
     }
 
