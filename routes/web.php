@@ -29,10 +29,23 @@ Route::get('users/{userId}',[UserController::class,'show'])
 Route::get('user-add',[UserController::class, 'add'])
     ->name('add.user');
 
-Route::get('games/{gameId}',[GameController::class,'show'])
-    ->name('games.show');
+Route::get('game/{gameId}',[GameController::class,'show'])
+    ->name('game.show');
 
-Route::get('games',[GameController::class, 'index'])
+//Route::resource('games',GameController::class)
+//->only([
+//    'index','show'
+//]);
+//Route::get('games',[GameController::class, 'index'])
+//    ->name('games.index');
+
+Route::get('games/dashboard',[GameController::class,'dashboard'])
+    ->name('games.dashboard');
+
+Route::get('games/index',[GameController::class,'index'])
     ->name('games.index');
 
-
+Route::resource('admin/games', GameController::class)
+    ->only([
+        'store','create','destroy'
+    ]);
