@@ -12,7 +12,7 @@
                 <li>Kategoria: {{ $game->genre_id }}</li>
                 <li>Opis: {{ $game->description }}</li>
             </ul>
-            <a href="{{ route('games.index') }}" class="btn btn-light">Powrót</a>
+            <a href="{{ route('games.b.list') }}" class="btn btn-light">Powrót</a>
 
         </div>
 

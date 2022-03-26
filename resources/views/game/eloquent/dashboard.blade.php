@@ -137,7 +137,7 @@
                             <td>{{ $game->title }}</td>
                             <td>{{ $game->score }}</td>
                             <td>{{ $game->genre_name }}</td>
-                            <td><a href="{{ route('game.show', ['gameId'=> $game->id]) }}">Szczegóły</a></td>
+                            <td><a href="{{ route('game.e.show', ['gameId'=> $game->id]) }}">Szczegóły</a></td>
                         </tr>
                     @endforeach
                     </tbody>

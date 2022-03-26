@@ -1,14 +1,15 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Game;
 
-use http\Env\Response;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
+use function view;
 
-class GameController extends Controller
+class BuilderController extends Controller
 {
     public function index(): View
     {
@@ -20,10 +21,9 @@ class GameController extends Controller
 //           ->orderBy('score','desc')
 //           ->limit(2)
 //           ->offset(10)
-        ->get();
+        ->paginate(10);
 
-
-        return view('game.list',[
+        return view('game.builder.list',[
             'games' => $games
         ]);
     }
@@ -52,7 +52,7 @@ class GameController extends Controller
             ->orderBy('count','desc')
             ->get();
 
-        return view('game.dashboard',[
+        return view('game.builder.dashboard',[
             'stats'=>$stat,
             'bestGames'=>$bestGames,
             'scoreStats'=>$scoreStats,
@@ -64,18 +64,8 @@ class GameController extends Controller
         $game = DB::table('games')
             ->find($gameId);
 
-        return view('game.show',[
+        return view('game.builder.show',[
             'game'=> $game,
         ]);
-    }
-
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    public function destroy($id)
-    {
-        //
     }
 }

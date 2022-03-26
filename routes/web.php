@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\User\ProfileController;
-use App\Http\Controllers\User\ShowAddress;
-use App\Models\User;
+use App\Http\Controllers\Game\GameController;
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +19,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [Home\MainPage::class, '__invoke'])
     ->name('home.mainPage');
 
+//USERS
 Route::get('users',[UserController::class,'list'])
     ->name('get.users');
 
@@ -29,23 +29,35 @@ Route::get('users/{userId}',[UserController::class,'show'])
 Route::get('user-add',[UserController::class, 'add'])
     ->name('add.user');
 
-Route::get('game/{gameId}',[GameController::class,'show'])
-    ->name('game.show');
+//GAMES
+Route::get('b/game/{gameId}',[Game\BuilderController::class,'show'])
+    ->name('game.b.show');
 
-//Route::resource('games',GameController::class)
-//->only([
-//    'index','show'
-//]);
-//Route::get('games',[GameController::class, 'index'])
-//    ->name('games.index');
+Route::get('e/game/{gameId}',[Game\EloquentController::class,'show'])
+    ->name('game.e.show');
 
-Route::get('games/dashboard',[GameController::class,'dashboard'])
-    ->name('games.dashboard');
+Route::group([
+    'namespace'=>'App\Http\Controllers\Game',
+    'prefix'=>'b/games',
+    'as'=>'games.b.',
+    ], function(){
+    Route::get('dashboard',[Game\BuilderController::class,'dashboard'])
+        ->name('dashboard');
 
-Route::get('games/index',[GameController::class,'index'])
-    ->name('games.index');
+    Route::get('',[Game\BuilderController::class,'index'])
+        ->name('list');
+});
 
-Route::resource('admin/games', GameController::class)
-    ->only([
-        'store','create','destroy'
-    ]);
+Route::group([
+    'namespace'=>'App\Http\Controllers\Game',
+    'prefix'=>'e/games',
+    'as'=>'games.e.',
+], function(){
+    Route::get('dashboard',[Game\EloquentController::class,'dashboard'])
+        ->name('dashboard');
+
+    Route::get('',[Game\EloquentController::class,'index'])
+        ->name('list');
+});
+
+
