@@ -1,6 +1,7 @@
 @extends('layout.main')
 
 @section('content')
+    <br>
     <div class="row mt3">
         <div class="col-x col-xl-3 col-md-6 mb-4">
             <div class="card border-left shadow-sm py-2 h-100">
@@ -106,8 +107,8 @@
            </div>
        </div>
     </div>
-
-    <div class="row mt3">
+    <br>
+    <div class="mt3">
         <div class="card mb-3">
             <div class="card-header"><i class="fas fa-table mr-1"></i>Best of the best</div>
             <div class="table-responsive">

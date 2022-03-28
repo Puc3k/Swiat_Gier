@@ -1,6 +1,7 @@
 @extends('layout.main')
 
 @section('content')
+    <br>
     <div class="card mt3">
         <div class="card">
             <div class="card-header"><i class="fas fa-table mr-1"></i>Gry</div>
