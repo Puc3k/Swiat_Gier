@@ -12,7 +12,7 @@
                         <th>Lp</th>
                         <th>Tytuł</th>
                         <th>Ocena</th>
-                        <th>Kategoria</th>
+                        <th>Gatunek</th>
                         <th>Opcja</th>
                     </tr>
                     </thead>
@@ -21,7 +21,7 @@
                         <th>Lp</th>
                         <th>Tytuł</th>
                         <th>Ocena</th>
-                        <th>Kategoria</th>
+                        <th>Gatunek</th>
                         <th>Opcja</th>
                     </tr>
                     </tfoot>
@@ -31,7 +31,7 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $game->title }}</td>
                             <td>{{ $game->score }}</td>
-                            <td>{{ $game->genre_name }}</td>
+                            <td>{{ $game->genre->name }}</td>
                             <td><a href="{{ route('game.e.show', ['gameId'=> $game->id]) }}">Szczegóły</a></td>
                         </tr>
                     @endforeach

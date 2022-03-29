@@ -10,5 +10,9 @@ class Game extends Model
     protected $attributes = [
        'score' => 5
     ];
-    use HasFactory;
+
+    public function  genre()
+    {
+        return $this->belongsTo(Genre::class);
+    }
 }

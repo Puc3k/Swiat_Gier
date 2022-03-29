@@ -9,7 +9,10 @@
                 <li>Id: {{ $game->id }}</li>
                 <li>Nazwa: {{ $game->title }}</li>
                 <li>Wydawca: {{ $game->publisher }}</li>
-                <li>Kategoria: {{ $game->genre_id }}</li>
+                <li>Gatunek:
+                    <span> ID: {{ $game->genre_id }} </span>
+                    <span> Nazwa: {{ $game->genre->name}} </span>
+                    </li>
                 <li>Opis: {{ $game->description }}</li>
             </ul>
             <a href="{{ route('games.b.list') }}" class="btn btn-light">Powrót</a>
