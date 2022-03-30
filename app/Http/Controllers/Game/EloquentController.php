@@ -24,8 +24,7 @@ class EloquentController extends Controller
 
     public function dashboard(): View
     {
-        $bestGames = Game::where('score','>',5)->get();
-
+        $bestGames = Game::best()->get();
         $stat = [
             'count' => Game::count(),
             'countScoreGtSeven' => Game::where('score', '>', 7)->count(),
