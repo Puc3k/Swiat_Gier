@@ -17135,6 +17135,10 @@ body {
   padding-right: 1.5rem;
 }
 
+.card {
+  margin-top: 1rem;
+}
+
 #layoutAuthentication {
   display: flex;
   flex-direction: column;

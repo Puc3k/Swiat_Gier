@@ -15,7 +15,7 @@
                     </li>
                 <li>Opis: {{ $game->description }}</li>
             </ul>
-            <a href="{{ route('games.b.list') }}" class="btn btn-light">Powrót</a>
+            <a href="{{ route('games.e.list') }}" class="btn btn-light">Powrót</a>
 
         </div>
 

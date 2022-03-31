@@ -116,6 +116,7 @@
                     <thead>
                     <tr>
                         <th>Lp</th>
+                        <th>Id</th>
                         <th>Tytuł</th>
                         <th>Ocena</th>
                         <th>Gatunek</th>
@@ -125,6 +126,7 @@
                     <tfoot>
                     <tr>
                         <th>Lp</th>
+                        <th>Id</th>
                         <th>Tytuł</th>
                         <th>Ocena</th>
                         <th>Gatunek</th>
@@ -135,6 +137,7 @@
                     @foreach($bestGames ?? [] as $game)
                         <tr>
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ $game->id }}</td>
                             <td>{{ $game->title }}</td>
                             <td>{{ $game->score }}</td>
                             <td>{{ $game->genre->name }}</td>

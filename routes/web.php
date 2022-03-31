@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Game\GameController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,3 +63,6 @@ Route::group([
 });
 
 
+Auth::routes();
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');

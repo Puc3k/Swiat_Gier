@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
+    protected $fillable=[
+        'title','description','score','publisher','genre_id'
+    ];
+
     protected $attributes = [
        'score' => 5
     ];
@@ -35,5 +39,11 @@ class Game extends Model
     {
         return $query
             ->where('genre_id',$genreId);
+    }
+
+    public function scopePublisher(Builder $query, string $name): Builder
+    {
+        return $query->where('publisher', $name);
+
     }
 }

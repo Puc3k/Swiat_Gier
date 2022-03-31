@@ -13,6 +13,8 @@ class EloquentController extends Controller
 {
     public function index(): View
     {
+        $game = Game::destroy(99);
+
         $games = Game::with('genre')
         ->orderBy('created_at')
         ->paginate(10);
