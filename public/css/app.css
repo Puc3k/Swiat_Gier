@@ -17269,6 +17269,7 @@ body {
   padding-left: 0;
   height: 56px;
   z-index: 1039;
+  justify-content: space-between;
 }
 
 .sb-topnav .navbar-brand {
@@ -17413,5 +17414,9 @@ body {
 
 .sb-sidenav-light .sb-sidenav-footer {
   background-color: #e9ecef;
+}
+
+#layoutAuthentication {
+  margin-top: 112px;
 }
 
