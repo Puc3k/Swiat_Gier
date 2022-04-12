@@ -17,12 +17,12 @@ class Game extends Model
        'score' => 5
     ];
 
-    protected static function booted()
-    {
-        static::addGlobalScope(new LastWeekScope());
-    }
+//    protected static function booted()
+//    {
+//        static::addGlobalScope(new LastWeekScope());
+//    }
 
-    public function  genre()
+    public function genre()
     {
         return $this->belongsTo(Genre::class);
     }

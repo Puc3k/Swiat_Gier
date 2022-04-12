@@ -11,7 +11,6 @@ class GameController extends Controller
 
     public function index(): Response
     {
-        dd('dupa');
         return view('games.list');
     }
 

@@ -62,6 +62,22 @@ Route::middleware(['auth'])
             Route::get('',[Game\EloquentController::class,'index'])
                 ->name('list');
         });
+
+        Route::group([
+            'namespace'=>'App\Http\Controllers\Game',
+            'prefix'=>'games',
+            'as'=>'games.',
+        ], function(){
+            Route::get('dashboard',[Game\GameController::class,'dashboard'])
+                ->name('dashboard');
+
+            Route::get('',[Game\GameController::class,'index'])
+                ->name('list');
+
+            Route::get('show/{gameId}',[Game\GameController::class,'show'])
+                ->name('show');
+        });
+
         Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
