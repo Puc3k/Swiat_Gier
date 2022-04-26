@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Game;
 
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Repository\GameRepository;
-use Illuminate\View\View;
+
 use function view;
 
 class GameController extends Controller
