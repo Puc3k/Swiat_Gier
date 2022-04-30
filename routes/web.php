@@ -1,91 +1,58 @@
 <?php
 
-namespace App\Http\Controllers;
+declare(strict_types=1);
 
-use App\Http\Controllers\Game\GameController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Game\GameController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Home\MainPage;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|ł
+|
 | Here is where you can register web routes for your application. These
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware(['auth'])
-    ->group(function (){
-        Route::get('/', [Home\MainPage::class, '__invoke'])
-            ->name('home.mainPage');
+//Route::group(['middleware' => ['auth']], function() {
+Route::middleware(['auth'])->group(function() {
+    Route::get('/', [MainPage::class,'__invoke'])
+    ->name('home.mainPage');
 
-//USERS
-        Route::get('users',[UserController::class,'list'])
-            ->name('get.users');
+    // USERS
+    Route::get('users', [UserController::class,'list'])
+        ->name('get.users');
 
-        Route::get('users/{userId}',[UserController::class,'show'])
-            ->name('get.user.show');
+    Route::get('users/{userId}', [UserController::class,'show'])
+        ->name('get.user.show');
 
-        Route::get('user-add',[UserController::class, 'add'])
-            ->name('add.user');
+    //Route::get('users/{id}/profile', 'User\ProfilController@show')
+    //    ->name('get.user.profile');
 
-//GAMES
-        Route::get('b/game/{gameId}',[Game\BuilderController::class,'show'])
-            ->name('game.b.show');
+//    Route::get('users/{id}/address', 'User\ShowAddress')
+//        ->where(['id' => '[0-9]+'])
+//        ->name('get.users.address');
 
-        Route::get('e/game/{gameId}',[Game\EloquentController::class,'show'])
-            ->name('game.e.show');
+    // GAMES
+    Route::group([
+        'prefix' => 'games',
+        'namespace' => 'Game',
+        'as' => 'games.'
+    ], function () {
+        Route::get('dashboard', [GameController::class,'dashboard'])
+            ->name('dashboard');
 
-        Route::group([
-            'namespace'=>'App\Http\Controllers\Game',
-            'prefix'=>'b/games',
-            'as'=>'games.b.',
-        ], function(){
-            Route::get('dashboard',[Game\BuilderController::class,'dashboard'])
-                ->name('dashboard');
+        Route::get('', [GameController::class,'index'])
+            ->name('list');
 
-            Route::get('',[Game\BuilderController::class,'index'])
-                ->name('list');
-        });
-
-        Route::group([
-            'namespace'=>'App\Http\Controllers\Game',
-            'prefix'=>'e/games',
-            'as'=>'games.e.',
-        ], function(){
-            Route::get('dashboard',[Game\EloquentController::class,'dashboard'])
-                ->name('dashboard');
-
-            Route::get('',[Game\EloquentController::class,'index'])
-                ->name('list');
-        });
-
-        Route::group([
-            'namespace'=>'App\Http\Controllers\Game',
-            'prefix'=>'games',
-            'as'=>'games.',
-        ], function(){
-            Route::get('dashboard',[Game\GameController::class,'dashboard'])
-                ->name('dashboard');
-
-            Route::get('',[Game\GameController::class,'index'])
-                ->name('list');
-
-            Route::get('show/{gameId}',[Game\GameController::class,'show'])
-                ->name('show');
-        });
-
-        Route::get('/home', [HomeController::class, 'index'])->name('home');
-
+        Route::get('{game}', [GameController::class,'show'])
+            ->name('show');
+    });
 
 });
 
-
-
-
 Auth::routes();
-
-

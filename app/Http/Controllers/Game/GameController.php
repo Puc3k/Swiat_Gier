@@ -1,42 +1,55 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Controllers\Game;
 
+use App\Facade\Game;
 use Illuminate\View\View;
-use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Repository\GameRepository;
-
-use function view;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 
 class GameController extends Controller
 {
     private GameRepository $gameRepository;
+
     public function __construct(GameRepository $repository)
     {
         $this->gameRepository = $repository;
     }
-    public function index(): View
+
+    public function index(Request $request): View
     {
+        $phrase = $request->get('phrase');
+        $type = $request->get('type',GameRepository::TYPE_DEFAULT);
+        $size = $request->get('size',15);
+
+        $resultPaginator = $this->gameRepository->filterBy($phrase,$type,$size);
+        $resultPaginator->appends([
+            'phrase'=> $phrase,
+            'type'=>$type,
+        ]);
+
         return view('game.list', [
-            'games' => $this->gameRepository->allPaginated(10)
+            'games' => $resultPaginator,
+            'phrase'=> $phrase,
+            'type'=>$type,
         ]);
     }
 
     public function dashboard(): View
     {
-        return view('game.eloquent.dashboard', [
-            'stats' => $this->gameRepository->stats(),
+        return view('game.dashboard', [
             'bestGames' => $this->gameRepository->best(),
-            'scoreStats' => $this->gameRepository->scoreStats(),
+            'stats' => $this->gameRepository->stats(),
+            'scoreStats' => $this->gameRepository->scoreStats()
         ]);
     }
 
-    public function show(int $gameId): View
+    public function show(int $gameId, Request $request): View
     {
         return view('game.show', [
-            'game' => $this->gameRepository->get($gameId),
+            'game' => $this->gameRepository->get($gameId)
         ]);
     }
 }
