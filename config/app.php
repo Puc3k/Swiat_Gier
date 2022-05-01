@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\GameServiceProvider::class,
+        App\Providers\UserServiceProvider::class,
 
 
     ],

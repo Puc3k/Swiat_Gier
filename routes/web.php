@@ -7,6 +7,7 @@ use App\Http\Controllers\Game\GameController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Home\MainPage;
+use App\Http\Controllers\User\UserController as UserControllerProfile;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,19 +24,22 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/', [MainPage::class,'__invoke'])
     ->name('home.mainPage');
 
+    //USER - ME
+    Route::group(['prefix'=> 'me','as'=>'me.'], function(){
+        Route::get('profile',[UserControllerProfile::class,'profile'])
+            ->name('profile');
+        Route::get('edit',[UserControllerProfile::class,'edit'])
+            ->name('edit');
+        Route::post('update',[UserControllerProfile::class,'update'])
+            ->name('update');
+    });
+
     // USERS
     Route::get('users', [UserController::class,'list'])
         ->name('get.users');
 
     Route::get('users/{userId}', [UserController::class,'show'])
         ->name('get.user.show');
-
-    //Route::get('users/{id}/profile', 'User\ProfilController@show')
-    //    ->name('get.user.profile');
-
-//    Route::get('users/{id}/address', 'User\ShowAddress')
-//        ->where(['id' => '[0-9]+'])
-//        ->name('get.users.address');
 
     // GAMES
     Route::group([
