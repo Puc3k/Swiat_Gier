@@ -18,13 +18,23 @@
             <form action="{{ route('me.update') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <!-- X-XSRF-TOKEN -->
-                @if( $user-> avatar )
-                    <div>Jest avatar</div>
-                @else
-                    <img src="/images/avatar.png" class="rounded mx-auto d-block">
-                @endif
+                    @if($user->avatar)
+                        <img src="{{ asset('assets/' . $user->avatar) }}" class="rounded mx-auto d-block" width="360" height="360">
+                    @else
+                        <img src="/images/avatar.png" class="rounded mx-auto d-block">
+                    @endif
 
                 <div class="form-group">
+                    <div class="form-group">
+                    <label for="avatar">Wybierz avatar...</label>
+                    <input
+                        type="file"
+                        class="form-control-file"
+                        id="avatar"
+                        name="avatar"
+                    >
+                    @error('avatar') <div class="invalid-feedback d-block">{{ $message }}</div> @enderror
+                    </div>
                     <label for="name">Nazwa</label>
                     <input
                         type="text"

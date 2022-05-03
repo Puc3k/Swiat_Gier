@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Repository\UserRepository;
 use App\Http\Requests\UpdateUserProfile;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -32,8 +33,23 @@ class UserController extends Controller
     }
     public function update(UpdateUserProfile $request)
     {
+        $user = Auth::user();
+        $data = $request->validated();
+        $path = null;
+        if(!empty($data['avatar']))
+        {
+            $path = $data['avatar']->store('avatars','public');
+            if($path)
+            {
+                Storage::disk('public')->delete($user->avatar);
+                $data['avatar'] = $path;
+            }
+        }
+
+
+
         $this->userRepository->updateModel(
-            Auth::user(), $request->validated()
+            Auth::user(), $data
         );
         return redirect()
             ->route('me.profile')
