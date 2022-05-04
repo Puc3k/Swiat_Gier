@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Home\MainPage;
 use App\Http\Controllers\User\UserController as UserControllerProfile;
+use App\Http\Controllers\User\GameController as UserGamesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,13 +26,23 @@ Route::middleware(['auth'])->group(function() {
     ->name('home.mainPage');
 
     //USER - ME
-    Route::group(['prefix'=> 'me','as'=>'me.'], function(){
+    Route::group(['prefix'=> 'me','as'=>'me.','namespace'=>'User'], function(){
         Route::get('profile',[UserControllerProfile::class,'profile'])
             ->name('profile');
         Route::get('edit',[UserControllerProfile::class,'edit'])
             ->name('edit');
         Route::post('update',[UserControllerProfile::class,'update'])
             ->name('update');
+
+        //User Games
+        Route::get('games',[UserGamesController::class,'list'])
+            ->name('games.list');
+        Route::post('games',[UserGamesController::class,'add'])
+            ->name('games.add');
+        Route::delete('games',[UserGamesController::class,'remove'])
+            ->name('games.remove');
+        Route::post('games/rate',[UserGamesController::class,'rate'])
+            ->name('games.rate');
     });
 
     // USERS

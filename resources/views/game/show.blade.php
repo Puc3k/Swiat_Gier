@@ -3,8 +3,18 @@
 @section('content')
 <div class="card">
     @if(!empty($game))
-        <h5 class="card-header">{{ $game->title }}</h5>
-        <div class="card-body">
+        <div class="card-header d-flex align-content-center justify-content-between text-center">
+        <h5>{{ $game->name }}</h5>
+        <form action="{{ route('me.games.add') }}" method="post" class="float-right m-0">
+            @csrf
+            <div class="form-row">
+                <input type="hidden" name="gameId" value="{{ $game->id }}">
+                <button type="submit" class="btn btn-primary mb-2">Dodaj do mojej listy</button>
+            </div>
+
+        </form>
+        </div>
+        <div2 class="card-body">
             <ul>
                 <li>Id: {{ $game->id }}</li>
                 <li>Nazwa: {{ $game->name }}</li>
@@ -27,7 +37,7 @@
             </div>
 
             <a href="{{ url()->previous() }}" class="btn btn-light">Powrót</a>
-        </div>
+        </div2>
     @else
         <h5 class="card-header">Brak danych do wyświetlenia</h5>
     @endif
