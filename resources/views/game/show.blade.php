@@ -5,14 +5,27 @@
     @if(!empty($game))
         <div class="card-header d-flex align-content-center justify-content-between text-center">
         <h5>{{ $game->name }}</h5>
-        <form action="{{ route('me.games.add') }}" method="post" class="float-right m-0">
-            @csrf
-            <div class="form-row">
-                <input type="hidden" name="gameId" value="{{ $game->id }}">
-                <button type="submit" class="btn btn-primary mb-2">Dodaj do mojej listy</button>
-            </div>
+            @if($userHasGame)
+                <form action="{{ route('me.games.remove') }}" method="post" class="float-right m-0">
+                    @method('delete')
+                    @csrf
+                    <div class="form-row">
+                        <input type="hidden" name="gameId" value="{{ $game->id }}">
+                        <button type="submit" class="btn btn-primary mb-2">Usuń z listy</button>
+                    </div>
 
-        </form>
+                </form>
+            @else
+                <form action="{{ route('me.games.add') }}" method="post" class="float-right m-0">
+                    @csrf
+                    <div class="form-row">
+                        <input type="hidden" name="gameId" value="{{ $game->id }}">
+                        <button type="submit" class="btn btn-primary mb-2">Dodaj do mojej listy</button>
+                    </div>
+
+                </form>
+            @endif
+
         </div>
         <div2 class="card-body">
             <ul>

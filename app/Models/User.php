@@ -53,4 +53,15 @@ class User extends Authenticatable
     {
         $this->games()->save($game);
     }
+
+    public function hasGame(int $gameId): bool
+    {
+        $game = $this->games()->where('userGames.game_id',$gameId)->first();
+        return (bool) $game;
+    }
+
+    public function removeGame(Game $game): void
+    {
+        $this->games()->detach($game->id);
+    }
 }
