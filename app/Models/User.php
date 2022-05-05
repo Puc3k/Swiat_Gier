@@ -46,7 +46,9 @@ class User extends Authenticatable
 
     public function games()
     {
-        return $this->belongsToMany(Game::class, 'userGames');
+        return $this->belongsToMany(Game::class, 'userGames')
+            ->withPivot('rate')
+            ->with('genres');
     }
 
     public function addGame(Game $game): void
@@ -63,5 +65,10 @@ class User extends Authenticatable
     public function removeGame(Game $game): void
     {
         $this->games()->detach($game->id);
+    }
+
+    public function rateGame(Game $game, ?int $rate): void
+    {
+        $this->games()->updateExistingPivot($game,['rate'=>$rate]);
     }
 }

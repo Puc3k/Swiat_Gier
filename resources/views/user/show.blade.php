@@ -12,11 +12,10 @@
         <h5 class="card-header">{{ $user['name'] }}</h5>
         <div class="card-body">
             <ul>
-                <li>Id: {{ $user['id'] }}</li>
-                <li>Imię: {{ $user['firstName'] }}</li>
-                <li>Nazwisko: {{ $user['lastName'] }}</li>
-                <li>Miasto: {{ $user['city'] }}</li>
-                <li>Wiek: {{ $user['age'] }}</li>
+                <li>Id: {{ $user->id }}</li>
+                <li>Email: {{ $user->email}}</li>
+                <li>Nazwa: {{ $user->name }}</li>
+                <li>Telefon: {{ $user->phone}}</li>
             </ul>
 
             <a href="{{ route('get.users') }}" class="btn btn-light">Lista użytkowników</a>
