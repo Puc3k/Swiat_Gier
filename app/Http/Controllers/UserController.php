@@ -4,7 +4,8 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Repository\UserRepository;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
+
 
 class UserController extends Controller
 {
@@ -15,6 +16,8 @@ class UserController extends Controller
     }
     public function list()
     {
+        Gate::authorize('admin-level');
+
         $users = $this->userRepository->all();
 
         return view('user.list',[
@@ -23,6 +26,10 @@ class UserController extends Controller
     }
     public function show(int $userId)
     {
+        Gate::authorize('admin-level');
+
+        $userModel = $this->userRepository->get($userId);
+        Gate::authorize('view', $userModel);
 
         return view('user.show',[
             'user' => $this->userRepository->get($userId),

@@ -28,6 +28,7 @@
     Katalog
 </a>
 </div>
+@can('admin-level')
 <div class="sb-sidenav-menu-heading">Admin Panel</div>
 <div class="sb-sidenav-menu-nested">
 <a class="nav-link" href="{{ route('get.users') }}">
@@ -35,5 +36,6 @@
     Użytkownicy
 </a>
 </div>
+@endcan
 
 
